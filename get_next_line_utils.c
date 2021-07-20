@@ -15,10 +15,11 @@ int		nl_index(char *s)
 	int	i;
 
 	i = 0;
-	while (s[i++])
+	while (s[i])
 	{
 		if (s[i] == '\n')
 			return(i);
+		i++;
 	}
 	return (-1);
 }
@@ -27,18 +28,24 @@ char	*get_string(char *str)
 {
 	char	*res;
 	int		i;
-	while (str[i] != '\n' && str[i])
-		i++;
-	res = (char *)malloc(i + 1);
+	int		l;
+
+	i = 0;
+	l = nl_index(str);
+	if (l < 0)
+		res = (char *)malloc(ft_strlen(str) + 1);
+	else
+		res = (char *)malloc(l + 2);
 	if (!res)
 		return (NULL);
-	i = 0;
 	while (str[i] != '\n' && str[i])
 	{
 		res[i] = str[i];
 		i++;
 	}
 	res[i] = str[i];
+	if (res[i] == '\n')
+		res[i + 1] = 0;
 	return (res);
 }
 
@@ -48,9 +55,13 @@ char	*clean_string(char *str)
 	int		i;
 	int		j;
 
-	i = 0;
 	j = 0;
 	i = nl_index(str);
+	if (i < 0)
+	{
+		res = (char *)malloc(0);
+		return(res);
+	}
 	res = (char *)malloc(ft_strlen(str) - i);
 	i++;
 	if (!res)
@@ -70,12 +81,12 @@ char	*merge(char *ln1, char *ln2)
 	res = (char *)malloc(ft_strlen(ln1) + ft_strlen(ln2) + 1);
 	i = 0;
 	j = 0;
-	while (ln1[i] != 0 && ln1[i] != '\n')
+	while (ln1[i] != 0)
 	{
 		res[i] = ln1[i];
 		i++;
 	}
-	while (ln2[j] != 0 && ln2[j] != '\n')
+	while (ln2[j] != 0)
 	{
 		res[i + j] = ln2[j];
 		j++;

@@ -9,3 +9,4 @@ char	*merge(char *ln1, char *ln2);
 int		nl_index(char *s);
 char	*read_file(int fd);
 char	*get_next_line(int fd);
+void	ft_bzero(void *s, size_t n);
