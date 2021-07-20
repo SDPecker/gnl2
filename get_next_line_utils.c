@@ -69,12 +69,14 @@ char	*clean_string(char *str)
 	while (str[i])
 		res[j++] = str[i++];
 	res[j] = 0;
+	free(str);
 	return (res);
 }
 
 char	*merge(char *ln1, char *ln2)
 {
 	char	*res;
+	//char	*tmp;
 	int		i;
 	int		j;
 
@@ -92,5 +94,6 @@ char	*merge(char *ln1, char *ln2)
 		j++;
 	}
 	res[i + j] = 0;
+	free(ln1);
 	return(res);
 }
