@@ -76,7 +76,6 @@ char	*clean_string(char *str)
 char	*merge(char *ln1, char *ln2)
 {
 	char	*res;
-	//char	*tmp;
 	int		i;
 	int		j;
 

@@ -5,9 +5,22 @@ int	main(void)
 {
 	
 	int fd = open("example", O_RDONLY);
-	char	*s = get_next_line(fd);
-	printf("%s", s);
-	free(s);
-	while (1);
-	return (0);
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	printf("%s", get_next_line(fd));
+	// char *s = get_next_line(fd);
+	// printf("%s", s);
+	// free(s);
+	// while(1);
+	// return (0);
 }

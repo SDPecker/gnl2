@@ -7,6 +7,8 @@ char	*get_next_line(int fd)
 	static char	*memory = 0;
 	static int	is_done = 0;
 
+	if (read(fd, 0, 0) < 0 || BUFFER_SIZE <= 0  || is_done)
+		return (NULL);
 	buf = (char *)malloc(BUFFER_SIZE + 1);
 	if (!memory)
 	{
@@ -16,15 +18,11 @@ char	*get_next_line(int fd)
 		memory = merge(memory, buf);
 		ft_bzero(buf, BUFFER_SIZE);
 	}
-	if (is_done)
-		return(NULL);
 	while (read(fd, buf, BUFFER_SIZE) != 0 && nl_index(buf) < 0 )
 	{
-		buf[BUFFER_SIZE] = '\0';
 		memory = merge(memory, buf);
 		ft_bzero(buf, BUFFER_SIZE + 1);
 	}
-	buf[BUFFER_SIZE] = '\0';
 	memory = merge(memory, buf);
 	ft_bzero(buf, BUFFER_SIZE);
 	if (nl_index(memory) >= 0)
@@ -34,15 +32,12 @@ char	*get_next_line(int fd)
 		free(buf);
 		return (res);
 	}
-	else
-	{
-		memory = merge(memory, buf);
-		res = get_string(memory);
-		is_done = 1;
-		free(memory);
-		free(buf);
-		return (res);
-	}
+	memory = merge(memory, buf);
+	res = get_string(memory);
+	is_done = 1;
+	free(memory);
+	free(buf);
+	return (res);
 }
 
 void	ft_bzero(void *s, size_t n)
