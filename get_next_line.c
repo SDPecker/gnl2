@@ -7,22 +7,12 @@ char	*get_next_line(int fd)
 	static char	*memory = 0;
 	static int	is_done = 0;
 
-	if (read(fd, 0, 0) < 0 || BUFFER_SIZE <= 0  || is_done)
+	if (read(fd, 0, 0) < 0 || BUFFER_SIZE <= 0 || is_done)
 		return (NULL);
 	buf = (char *)malloc(BUFFER_SIZE + 1);
 	if (!memory)
-	{
-		memory = malloc(1);
-		read(fd, buf, BUFFER_SIZE);
-		buf[BUFFER_SIZE] = '\0';
-		memory = merge(memory, buf);
-		ft_bzero(buf, BUFFER_SIZE);
-	}
-	while (read(fd, buf, BUFFER_SIZE) != 0 && nl_index(buf) < 0 )
-	{
-		memory = merge(memory, buf);
-		ft_bzero(buf, BUFFER_SIZE + 1);
-	}
+		memory = create_memory(buf, fd);
+	get_memory(memory, buf, fd);
 	memory = merge(memory, buf);
 	ft_bzero(buf, BUFFER_SIZE);
 	if (nl_index(memory) >= 0)
@@ -32,11 +22,8 @@ char	*get_next_line(int fd)
 		free(buf);
 		return (res);
 	}
-	memory = merge(memory, buf);
-	res = get_string(memory);
 	is_done = 1;
-	free(memory);
-	free(buf);
+	res = process_eof(memory, buf);
 	return (res);
 }
 
@@ -52,4 +39,36 @@ void	ft_bzero(void *s, size_t n)
 		p[i] = 0;
 		i++;
 	}
+}
+
+void	get_memory(char *memory, char *buf, int fd)
+{
+	while (read(fd, buf, BUFFER_SIZE) != 0 && nl_index(buf) < 0 )
+	{
+		memory = merge(memory, buf);
+		ft_bzero(buf, BUFFER_SIZE + 1);
+	}
+}
+
+char	*create_memory(char *buf, int fd)
+{
+	char	*res;
+
+	res = malloc(1);
+	read(fd, buf, BUFFER_SIZE);
+	buf[BUFFER_SIZE] = '\0';
+	res = merge(res, buf);
+	ft_bzero(buf, BUFFER_SIZE);
+	return (res);
+}
+
+char	*process_eof(char *memory, char *buf)
+{
+	char	*res;
+
+	memory = merge(memory, buf);
+	res = get_string(memory);
+	free(memory);
+	free(buf);
+	return (res);
 }

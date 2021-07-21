@@ -4,7 +4,7 @@
 int	main(void)
 {
 	
-	int fd = open("example", O_RDONLY);
+	int fd = open("example_empty", O_RDONLY);
 	printf("%s", get_next_line(fd));
 	printf("%s", get_next_line(fd));
 	printf("%s", get_next_line(fd));
@@ -22,5 +22,5 @@ int	main(void)
 	// printf("%s", s);
 	// free(s);
 	// while(1);
-	// return (0);
+	return (0);
 }

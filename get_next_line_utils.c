@@ -10,7 +10,7 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
-int		nl_index(char *s)
+int	nl_index(char *s)
 {
 	int	i;
 
@@ -18,7 +18,7 @@ int		nl_index(char *s)
 	while (s[i])
 	{
 		if (s[i] == '\n')
-			return(i);
+			return (i);
 		i++;
 	}
 	return (-1);
@@ -60,7 +60,7 @@ char	*clean_string(char *str)
 	if (i < 0)
 	{
 		res = (char *)malloc(0);
-		return(res);
+		return (res);
 	}
 	res = (char *)malloc(ft_strlen(str) - i);
 	i++;
@@ -94,5 +94,5 @@ char	*merge(char *ln1, char *ln2)
 	}
 	res[i + j] = 0;
 	free(ln1);
-	return(res);
+	return (res);
 }
